@@ -37,16 +37,11 @@ function render (renderer /* : RendererType */, chunk /* : any */, data /* : Obj
   })
 }
 
-const templates = {}
-function getTemplateFromName (templateName /* : string */, folder /* : string */, lang /* : string */) {
-  if (!templates[templateName]) {
-    templates[templateName] = {}
-  }
-  if (!templates[templateName][lang]) {
-    const getTemplate = require(`${path.resolve(folder, templateName)}`)
-    templates[templateName][lang] = getTemplate(lang)
-  }
-  return Promise.resolve(templates[templateName][lang])
+function getTemplateFromName(templateName /* : string */, folder /* : string */, lang /* : string */) {
+  const getTemplate = require(`${path.resolve(folder, templateName)}`)
+  const template = getTemplate(lang)
+
+  return Promise.resolve(template)
 }
 
 function inlineCss (notif /* : TemplateType */, juiceOptions /* : $PropertyType<OptionsType, 'juice'> */) {
